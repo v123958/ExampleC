@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+/*************************************************
+* Function: ASCIIHexToValue
+* Description: Convert "0x12" -> 18(dec)
+* Input:
+* Output:
+*
+*************************************************/
+int ASCIIHexToValue(const char *input)
+{
+	int result = 0;
+	int digit;
+	
+	/*Check 0x*/
+	if((*input == '0') && (*(input+1) == 'x')) 
+		input += 2;
+
+	while(*input) 
+	{		
+		/*Find 0-9*/
+		if((*input >= '0') && (*input <= '9'))
+		{
+            digit = *input - '0';
+		}
+		/*Find A-F*/
+		else if((*input >= 'A') && (*input <= 'F'))
+		{
+            digit = 10 + *input - 'A';
+		}
+		/*Find a-f*/
+		else if((*input >= 'a') && (*input <= 'f'))
+		{
+            digit = 10 + *input - 'a';
+		}
+		else 
+            break;
+		
+        result = result * 16;
+        result = result + digit;
+        input++;
+	}
+
+    return result;
+}
+
+int main(int argc, char **argv)
+{
+	char input[10] = "0x12";
+	int rv;
+
+	rv = ASCIIHexToValue(input);	
+	
+	printf("%d\n", rv);
+
+	system("PAUSE");
+    return 0;
+}
