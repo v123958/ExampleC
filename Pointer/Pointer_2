@@ -1,0 +1,29 @@
+/*A pointer to a pointer*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int B = 2;
+void func(int **p) 
+{ 
+	printf("func 1 - &p:%02X, **p:%02X , *p:%02X ,p:%02X\n", &p, **p, *p, p);  //兩顆星依一顆星的地址去取值 
+
+	*p = &B;
+	
+	printf("func 2 - &B:%02X, B:%02X\n", &B, B);
+	printf("func 3 - &p:%02X, **p:%02X , *p:%02X ,p:%02X\n\n", &p, **p, *p, p);
+}
+
+int main()
+{
+    int A = 1, C = 3;
+    int *ptrA = &A;
+    
+    printf("main 1 - &ptrA:%02X, *ptrA:%02X ,ptrA:%02X\n\n", &ptrA, *ptrA, ptrA);
+
+    func(&ptrA);
+    
+    printf("main 2 - &ptrA:%02X, *ptrA:%02X ,ptrA:%02X\n\n", &ptrA, *ptrA, ptrA);
+    
+    return 0;
+}
