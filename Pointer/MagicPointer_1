@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <memory.h> 
+#include <string.h>
+typedef unsigned char   u8;
+typedef unsigned short  u16;
+typedef char   s8;
+
+typedef u8 typedef_arry[3];
+
+struct s
+{
+    u8 s1[1];
+    u8 s2[1];
+    u8 s3[1];
+};
+
+int main()
+{
+	u8 main_arry[300];
+	
+	main_arry[0]=0xA0;
+	main_arry[1]=0xA1;
+	main_arry[2]=0xA2;//////
+	main_arry[3]=0xA3;//////
+	main_arry[4]=0xA4;//////
+	main_arry[5]=0xA5;
+	main_arry[6]=0xA6;	
+
+	struct s *_s = &main_arry[2];
+	printf("s1-value: %X\n", _s->s1[0]);
+	printf("s2-value: %X\n", _s->s2[0]);
+	printf("s3-value: %X\n\n", _s->s3[0]);
+	printf("s1-addr: %X\n", _s->s1);
+	printf("s2-addr: %X\n", _s->s2);
+	printf("s3-addr: %X\n\n", _s->s3);
+	
+	typedef_arry *def = _s;  //*def是依資料型態去該地址取值, 但typedef_arry是一個陣列, 因為陣列名稱是地址, 所以取到值是def的值.			
+	
+	printf("def: %X\n", def);
+	printf("*def: %X\n", *def);
+	printf("&def: %X\n\n", &def);
+	printf("*(*def+0): %X\n", *(*def+0));
+	printf("*(*def+1): %X\n", *(*def+1));
+	printf("*(*def+2): %X\n", *(*def+2));
+
+	printf("\n");
+    system("PAUSE");
+    return 0;
+}
