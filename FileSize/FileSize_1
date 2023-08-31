@@ -1,0 +1,53 @@
+int maxFileSize = 100;
+
+do
+{
+	sprintf(cmd, "ls -l %s > /tmp/tmpFile", FilePath);
+	system(cmd);
+	if((fp = fopen("/tmp/tmpFile", "r")) != NULL)
+	{
+		char line[256] = {0};
+		char *strstrCheck = NULL;
+		int wLength = 0;
+
+		if(fgets(line, sizeof(line), fp)!= NULL)
+		{
+			/*Check the content of tmpFile*/
+			if(strstr(line, "root")!= NULL)
+			{
+				/*Check length*/
+				fseek(fp, 0, SEEK_END);
+				wLength = ftell(fp);
+
+				/*Found the string but over line array size*/
+				if (wLength + 1 > sizeof(line))
+				{
+					fclose(fp);
+					system("killall xxxProcess");
+					system("rm -rf /tmp/tmpFile");
+					break;
+				}
+
+				sscanf(line, "%*s %*s %*s %*s %d", &filesize);
+				printf("filesize: %d\n", filesize);
+			}
+			else
+			{
+				fclose(fp);
+				system("killall xxxProcess");
+				system("rm -rf /tmp/tmpFile");
+				system("Wrong format");
+				break;
+			}
+		}
+		else
+		{
+			fclose(fp);
+			system("killall xxxProcess");
+			system("rm -rf /tmp/tmpFile");
+			system("Cannot get size of file");
+			break;
+		}
+		fclose(fp);
+	}
+}	while(filesize < maxFileSize);
