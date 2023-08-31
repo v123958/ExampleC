@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <time.h>
+
+time_t starttime, currenttime;
+int timeout = 100; //second
+
+starttime = time(NULL);
+do
+{
+  sleep(1);
+	currenttime = time(NULL);
+}while((difftime(currenttime, starttime) < timeout));
